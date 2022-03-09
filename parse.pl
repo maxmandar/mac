@@ -1,5 +1,5 @@
 =pod
-    This is XML parser version 1.0 for Macquarie Interview Demo
+    This is XML parser version 1.0 for w Demo
     Developer - Mandar Ingale.
 =cut
 
@@ -21,24 +21,33 @@ c => 1
 f => test.xml
 =cut
 
-    #to know what users are typing on command line. 
-    # in Perl all command line arguments comes in ARG array
-
-    # print Dumper(@ARGV); # willl give you command line argument in Variable and key formate
-    # print $ARGV[0]; # will show first argument  
-
     #Best option to read argument is GetOpt::Std.
-
+    # print Dumper(@ARGV);
+  
     my %opts;
+    #Accept three flags, -a, -f, -c, if any other flag is passed then its error.
+    #only f can take argument hence : after f.
     getopts('af:c', \%opts); # Please remember its getopts(with s). Dont miss it. \ is taking referrence to the Hash table.
-                          # Important thing is : as it will help to treat variable as actual argument. or else just parameter.
+                          
 
-    #print Dumper(%opts);
+    print Dumper(%opts);
+    my $file = $opts{'f'};
+    print "File name is : $file \n";
 
-    # my $file = $opts{'f'};
+=pod
+PS C:\Users\maxma\Dev\mac\29_GettingCommandLine> perl .\parse.pl -a -f text.xml -c -d
+Unknown option: d
+$VAR1 = 'a';
+$VAR2 = 1;
+$VAR3 = 'c';
+$VAR4 = 1;
+$VAR5 = 'f';
+$VAR6 = 'text.xml';
+File name is : text.xml
+=cut
 
-    # print "File:$file\n";
 
+    exit 0 ;
     if(!checkusage(\%opts)){ # Check usage is going to check if user has entered correct options or elese it will return correct value.
         usage();
     }
